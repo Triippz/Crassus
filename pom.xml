@@ -22,6 +22,7 @@
         <module>CrassusService</module>
         <module>CrassusCore</module>
         <module>CrassusErrors</module>
+        <module>CrassusUtils</module>
     </modules>
 
     <properties>

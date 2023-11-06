@@ -148,8 +148,8 @@ spring:
             issuer-uri: https://keycloak-zsof0-u8759.vm.elestio.app/realms/Crassus
         registration:
           oidc:
-            client-id: web_app
-            client-secret: web_app
+            client-id: crassus_api
+            client-secret: crassus_api
             scope: openid, profile, email, offline_access # last one for refresh tokens
 
 server:

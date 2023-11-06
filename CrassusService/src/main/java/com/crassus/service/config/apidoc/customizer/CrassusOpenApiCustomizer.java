@@ -24,7 +24,7 @@ public class CrassusOpenApiCustomizer implements OpenApiCustomizer, Ordered {
   private final CrassusProperties.ApiDocs properties;
 
   /**
-   * <p>Constructor for FitFolioOpenApiCustomizer.</p>
+   * <p>Constructor for CrassusOpenApiCustomizer.</p>
    *
    * @param properties a {@link CrassusProperties.ApiDocs} object.
    */

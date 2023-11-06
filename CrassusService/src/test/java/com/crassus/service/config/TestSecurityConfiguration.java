@@ -37,7 +37,7 @@ public class TestSecurityConfiguration {
 
   private ClientRegistration.Builder clientRegistrationBuilder() {
     Map<String, Object> metadata = new HashMap<>();
-    metadata.put("end_session_endpoint", "https://fitfolio.io/logout");
+    metadata.put("end_session_endpoint", "https://crassuscommerce.com/logout");
 
     return ClientRegistration
       .withRegistrationId("oidc")
@@ -46,10 +46,10 @@ public class TestSecurityConfiguration {
       .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
       .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
       .scope("read:user")
-      .authorizationUri("https://fitfolio.io/login/oauth/authorize")
-      .tokenUri("https://fitfolio.io/login/oauth/access_token")
-      .jwkSetUri("https://fitfolio.io/oauth/jwk")
-      .userInfoUri("https://api.fitfolio.io/user")
+      .authorizationUri("https://crassuscommerce.com/login/oauth/authorize")
+      .tokenUri("https://crassuscommerce.com/login/oauth/access_token")
+      .jwkSetUri("https://crassuscommerce.com/oauth/jwk")
+      .userInfoUri("https://api.crassuscommerce.com/user")
       .providerConfigurationMetadata(metadata)
       .userNameAttributeName("id")
       .clientName("Client Name")

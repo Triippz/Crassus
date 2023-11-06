@@ -50,6 +50,7 @@
         <nohttp-checkstyle.version>0.0.11</nohttp-checkstyle.version>
         <checkstyle.version>10.12.4</checkstyle.version>
         <flyway.version>9.22.3</flyway.version>
+        <flyway-postgres.version>10.0.0</flyway-postgres.version>
         <flyway-maven-plugin.version>9.22.3</flyway-maven-plugin.version>
         <springdoc.version>2.2.0</springdoc.version>
         <jib-maven-plugin.architecture>amd64</jib-maven-plugin.architecture>
@@ -124,8 +125,8 @@
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-mysql</artifactId>
-            <version>${flyway.version}</version>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>${flyway-postgres.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>

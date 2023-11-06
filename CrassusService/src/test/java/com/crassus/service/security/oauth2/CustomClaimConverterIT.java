@@ -1,4 +1,4 @@
-package com.crassus.service.security.oauth2; //package io.fitfolio.service.security.oauth2;
+package com.crassus.service.security.oauth2;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import com.fasterxml.jackson.databind.node.ObjectNode;

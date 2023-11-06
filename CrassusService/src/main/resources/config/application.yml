@@ -18,8 +18,8 @@ management:
           - env
           - health
           - info
-          - ffmetrics
-          - ffopenapigroups
+          - crassusmetrics
+          - openapigroups
           - logfile
           - loggers
           - prometheus

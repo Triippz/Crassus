@@ -289,8 +289,8 @@ public class CrassusProperties {
 
   public static class ApiDocs {
 
-    private String title = "FitFolio API";
-    private String description = "FitFolio API documentation";
+    private String title = "Crassus API";
+    private String description = "Crassus API documentation";
     private String version = "0.0.1";
     private String termsOfServiceUrl;
     private String contactName;
@@ -514,7 +514,7 @@ public class CrassusProperties {
 
   public static class ClientApp {
 
-    private String name = "fitfolioApp";
+    private String name = "crassusApp";
 
     public ClientApp() {}
 

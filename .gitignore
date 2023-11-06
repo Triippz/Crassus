@@ -37,5 +37,5 @@ build/
 ### Mac OS ###
 .DS_Store
 
-FitFolioService/*.env
+CrassusService/*.env
 *.env

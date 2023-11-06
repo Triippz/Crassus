@@ -13,19 +13,19 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "customer_group_customers")
 public class CustomerGroupCustomer {
-    @EmbeddedId
-    private CustomerGroupCustomerId id;
 
-    @MapsId("customerGroupId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "customer_group_id", nullable = false)
-    private CustomerGroup customerGroup;
+  @EmbeddedId
+  private CustomerGroupCustomerId id;
 
-    @MapsId("customerId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+  @MapsId("customerGroupId")
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "customer_group_id", nullable = false)
+  private CustomerGroup customerGroup;
 
+  @MapsId("customerId")
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "customer_id", nullable = false)
+  private Customer customer;
 }

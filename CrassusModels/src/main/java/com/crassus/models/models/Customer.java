@@ -3,12 +3,11 @@ package com.crassus.models.models;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -18,50 +17,51 @@ import java.util.Map;
 @Entity
 @Table(name = "customer")
 public class Customer extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "email", nullable = false, length = Integer.MAX_VALUE)
-    private String email;
 
-    @Column(name = "first_name", length = Integer.MAX_VALUE)
-    private String firstName;
+  @NotNull
+  @Column(name = "email", nullable = false, length = Integer.MAX_VALUE)
+  private String email;
 
-    @Column(name = "last_name", length = Integer.MAX_VALUE)
-    private String lastName;
+  @Column(name = "first_name", length = Integer.MAX_VALUE)
+  private String firstName;
 
-    @Column(name = "billing_address_id", insertable = false, updatable = false)
-    private String billingAddressId;
+  @Column(name = "last_name", length = Integer.MAX_VALUE)
+  private String lastName;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "billing_address_id")
-    private Address billingAddress;
+  @Column(name = "billing_address_id", insertable = false, updatable = false)
+  private String billingAddressId;
 
-    @Column(name = "password_hash", length = Integer.MAX_VALUE)
-    private String passwordHash;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "billing_address_id")
+  private Address billingAddress;
 
-    @Column(name = "phone", length = Integer.MAX_VALUE)
-    private String phone; // TODO add phoneNumber type
+  @Column(name = "password_hash", length = Integer.MAX_VALUE)
+  private String passwordHash;
 
-    @NotNull
-    @Column(name = "has_account", nullable = false)
-    private Boolean hasAccount = false;
+  @Column(name = "phone", length = Integer.MAX_VALUE)
+  private String phone; // TODO add phoneNumber type
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @NotNull
+  @Column(name = "has_account", nullable = false)
+  private Boolean hasAccount = false;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "cus";
-    }
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
+
+  @Override
+  protected String getIdPrefix() {
+    return "cus";
+  }
 }

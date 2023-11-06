@@ -290,8 +290,8 @@
                     <!-- Use <inputGlobs> to override the default input patterns -->
                     <inputGlobs>
                         <!-- These are the default patterns, you can omit <inputGlobs> entirely unless you want to override them -->
-                        <inputGlob>src/main/java/**/*.java</inputGlob>
-                        <inputGlob>src/test/java/**/*.java</inputGlob>
+                        <inputGlob>**/src/main/java/**/*.java</inputGlob>
+                        <inputGlob>**/src/test/java/**/*.java</inputGlob>
                     </inputGlobs>
                 </configuration>
                 <executions>

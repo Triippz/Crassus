@@ -13,19 +13,19 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "discount_regions")
 public class DiscountRegion {
-    @EmbeddedId
-    private DiscountRegionId id;
 
-    @MapsId("discountId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "discount_id", nullable = false)
-    private Discount discount;
+  @EmbeddedId
+  private DiscountRegionId id;
 
-    @MapsId("regionId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "region_id", nullable = false)
-    private Region region;
+  @MapsId("discountId")
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "discount_id", nullable = false)
+  private Discount discount;
 
+  @MapsId("regionId")
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "region_id", nullable = false)
+  private Region region;
 }

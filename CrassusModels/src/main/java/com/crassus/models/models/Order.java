@@ -6,12 +6,11 @@ import com.crassus.models.enumerations.OrderPaymentStatusType;
 import com.crassus.models.enumerations.OrderStatusType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -21,82 +20,83 @@ import java.util.Map;
 @Entity
 @Table(name = "\"order\"")
 public class Order extends BaseEntity {
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private OrderStatusType status;
 
-    @NotNull
-    @Column(name = "fulfillment_status", nullable = false)
-    private OrderFulfillmentStatusType fulfillmentStatus;
+  @NotNull
+  @Column(name = "status", nullable = false)
+  private OrderStatusType status;
 
-    @NotNull
-    @Column(name = "payment_status", nullable = false)
-    private OrderPaymentStatusType paymentStatus;
+  @NotNull
+  @Column(name = "fulfillment_status", nullable = false)
+  private OrderFulfillmentStatusType fulfillmentStatus;
 
-    @NotNull
-    @Column(name = "display_id", nullable = false)
-    private Integer displayId;
+  @NotNull
+  @Column(name = "payment_status", nullable = false)
+  private OrderPaymentStatusType paymentStatus;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+  @NotNull
+  @Column(name = "display_id", nullable = false)
+  private Integer displayId;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "cart_id")
+  private Cart cart;
 
-    @NotNull
-    @Column(name = "email", nullable = false, length = Integer.MAX_VALUE)
-    private String email;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "customer_id", nullable = false)
+  private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "billing_address_id")
-    private Address billingAddress;
+  @NotNull
+  @Column(name = "email", nullable = false, length = Integer.MAX_VALUE)
+  private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shipping_address_id")
-    private Address shippingAddress;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "billing_address_id")
+  private Address billingAddress;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "region_id", nullable = false)
-    private Region region;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "shipping_address_id")
+  private Address shippingAddress;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "currency_code", nullable = false)
-    private Currency currencyCode;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "region_id", nullable = false)
+  private Region region;
 
-    @Column(name = "tax_rate")
-    private Float taxRate;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "currency_code", nullable = false)
+  private Currency currencyCode;
 
-    @Column(name = "canceled_at")
-    private OffsetDateTime canceledAt;
+  @Column(name = "tax_rate")
+  private Float taxRate;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "canceled_at")
+  private OffsetDateTime canceledAt;
 
-    @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
-    private String idempotencyKey;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "draft_order_id")
-    private DraftOrder draftOrder;
+  @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
+  private String idempotencyKey;
 
-    @Column(name = "no_notification")
-    private Boolean noNotification;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "draft_order_id")
+  private DraftOrder draftOrder;
 
-    @Column(name = "external_id", length = Integer.MAX_VALUE)
-    private String externalId;
+  @Column(name = "no_notification")
+  private Boolean noNotification;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sales_channel_id")
-    private SalesChannel salesChannel;
+  @Column(name = "external_id", length = Integer.MAX_VALUE)
+  private String externalId;
 
-    @Override
-    protected String getIdPrefix() {
-        return "order";
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "sales_channel_id")
+  private SalesChannel salesChannel;
+
+  @Override
+  protected String getIdPrefix() {
+    return "order";
+  }
 }

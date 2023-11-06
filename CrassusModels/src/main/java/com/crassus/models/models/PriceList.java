@@ -7,9 +7,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-
 import java.time.OffsetDateTime;
+import lombok.*;
 
 @Getter
 @Setter
@@ -19,30 +18,31 @@ import java.time.OffsetDateTime;
 @Entity
 @Table(name = "price_list")
 public class PriceList extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
-    private String name;
 
-    @NotNull
-    @Column(name = "description", nullable = false, length = Integer.MAX_VALUE)
-    private String description;
+  @NotNull
+  @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
+  private String name;
 
-    @NotNull
-    @Column(name = "type", nullable = false)
-    private PriceListType type;
+  @NotNull
+  @Column(name = "description", nullable = false, length = Integer.MAX_VALUE)
+  private String description;
 
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private PriceListStatusType status;
+  @NotNull
+  @Column(name = "type", nullable = false)
+  private PriceListType type;
 
-    @Column(name = "starts_at")
-    private OffsetDateTime startsAt;
+  @NotNull
+  @Column(name = "status", nullable = false)
+  private PriceListStatusType status;
 
-    @Column(name = "ends_at")
-    private OffsetDateTime endsAt;
+  @Column(name = "starts_at")
+  private OffsetDateTime startsAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "pl";
-    }
+  @Column(name = "ends_at")
+  private OffsetDateTime endsAt;
+
+  @Override
+  protected String getIdPrefix() {
+    return "pl";
+  }
 }

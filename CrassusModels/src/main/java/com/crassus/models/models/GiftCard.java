@@ -3,12 +3,11 @@ package com.crassus.models.models;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -18,54 +17,55 @@ import java.util.Map;
 @Entity
 @Table(name = "gift_card")
 public class GiftCard extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "code", nullable = false, length = Integer.MAX_VALUE)
-    private String code;
 
-    @NotNull
-    @Column(name = "value", nullable = false)
-    private Integer value;
+  @NotNull
+  @Column(name = "code", nullable = false, length = Integer.MAX_VALUE)
+  private String code;
 
-    @NotNull
-    @Column(name = "balance", nullable = false)
-    private Integer balance;
+  @NotNull
+  @Column(name = "value", nullable = false)
+  private Integer value;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "region_id", nullable = false)
-    private Region region;
+  @NotNull
+  @Column(name = "balance", nullable = false)
+  private Integer balance;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "region_id", nullable = false)
+  private Region region;
 
-    @NotNull
-    @Column(name = "is_disabled", nullable = false)
-    private Boolean isDisabled = false;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "order_id")
+  private Order order;
 
-    @Column(name = "ends_at")
-    private OffsetDateTime endsAt;
+  @NotNull
+  @Column(name = "is_disabled", nullable = false)
+  private Boolean isDisabled = false;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @Column(name = "ends_at")
+  private OffsetDateTime endsAt;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @Column(name = "tax_rate")
-    private Float taxRate;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @Override
-    protected String getIdPrefix() {
-        return "gift";
-    }
+  @Column(name = "tax_rate")
+  private Float taxRate;
+
+  @Override
+  protected String getIdPrefix() {
+    return "gift";
+  }
 }

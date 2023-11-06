@@ -4,12 +4,11 @@ import com.crassus.models.SoftDeletableEntity;
 import com.crassus.models.enumerations.CartType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -19,84 +18,85 @@ import java.util.Map;
 @Entity
 @Table(name = "cart")
 public class Cart extends SoftDeletableEntity {
-    @Column(name = "email", length = Integer.MAX_VALUE)
-    private String email;
 
-    @Column(name = "billing_address_id", insertable = false, updatable = false)
-    private String billingAddressId;
+  @Column(name = "email", length = Integer.MAX_VALUE)
+  private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "billing_address_id")
-    private Address billingAddress;
+  @Column(name = "billing_address_id", insertable = false, updatable = false)
+  private String billingAddressId;
 
-    @Column(name = "shipping_address_id", insertable = false, updatable = false)
-    private String shippingAddressId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "billing_address_id")
+  private Address billingAddress;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shipping_address_id")
-    private Address shippingAddress;
+  @Column(name = "shipping_address_id", insertable = false, updatable = false)
+  private String shippingAddressId;
 
-    @Column(name = "region_id", insertable = false, updatable = false)
-    private String regionId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "shipping_address_id")
+  private Address shippingAddress;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "region_id", nullable = false)
-    private Region region;
+  @Column(name = "region_id", insertable = false, updatable = false)
+  private String regionId;
 
-    @Column(name = "customer_id", insertable = false, updatable = false)
-    private String customerId;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "region_id", nullable = false)
+  private Region region;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+  @Column(name = "customer_id", insertable = false, updatable = false)
+  private String customerId;
 
-    @Column(name = "payment_id", insertable = false, updatable = false)
-    private String paymentId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "customer_id")
+  private Customer customer;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
+  @Column(name = "payment_id", insertable = false, updatable = false)
+  private String paymentId;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    private CartType type;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "payment_id")
+  private Payment payment;
 
-    @Column(name = "completed_at")
-    private OffsetDateTime completedAt;
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  @Column(name = "type", nullable = false)
+  private CartType type;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @Column(name = "completed_at")
+  private OffsetDateTime completedAt;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
-    private String idempotencyKey;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @Column(name = "context")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> context;
+  @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
+  private String idempotencyKey;
 
-    @Column(name = "payment_authorized_at")
-    private OffsetDateTime paymentAuthorizedAt;
+  @Column(name = "context")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> context;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sales_channel_id")
-    private SalesChannel salesChannel;
+  @Column(name = "payment_authorized_at")
+  private OffsetDateTime paymentAuthorizedAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "cart";
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "sales_channel_id")
+  private SalesChannel salesChannel;
+
+  @Override
+  protected String getIdPrefix() {
+    return "cart";
+  }
 }

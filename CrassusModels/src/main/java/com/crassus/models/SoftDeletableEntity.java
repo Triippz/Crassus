@@ -4,11 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.time.OffsetDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.OffsetDateTime;
 
 @MappedSuperclass
 @Getter
@@ -16,7 +15,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 public abstract class SoftDeletableEntity extends BaseEntity {
 
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private OffsetDateTime deletedAt;
+  @Column
+  @Temporal(TemporalType.TIMESTAMP)
+  private OffsetDateTime deletedAt;
 }

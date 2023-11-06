@@ -3,12 +3,11 @@ package com.crassus.models.models;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -18,70 +17,71 @@ import java.util.Map;
 @Entity
 @Table(name = "discount")
 public class Discount extends SoftDeletableEntity {
-    @Id
-    @Column(name = "id", nullable = false, length = Integer.MAX_VALUE)
-    private String id;
 
-    @NotNull
-    @Column(name = "code", nullable = false, length = Integer.MAX_VALUE)
-    private String code;
+  @Id
+  @Column(name = "id", nullable = false, length = Integer.MAX_VALUE)
+  private String id;
 
-    @NotNull
-    @Column(name = "is_dynamic", nullable = false)
-    private Boolean isDynamic = false;
+  @NotNull
+  @Column(name = "code", nullable = false, length = Integer.MAX_VALUE)
+  private String code;
 
-    @Column(name = "rule_id", insertable = false, updatable = false)
-    private String ruleId;
+  @NotNull
+  @Column(name = "is_dynamic", nullable = false)
+  private Boolean isDynamic = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rule_id")
-    private DiscountRule rule;
+  @Column(name = "rule_id", insertable = false, updatable = false)
+  private String ruleId;
 
-    @NotNull
-    @Column(name = "is_disabled", nullable = false)
-    private Boolean isDisabled = false;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "rule_id")
+  private DiscountRule rule;
 
-    @Column(name = "parent_discount_id", insertable = false, updatable = false)
-    private String parentDiscountId;
+  @NotNull
+  @Column(name = "is_disabled", nullable = false)
+  private Boolean isDisabled = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_discount_id")
-    private Discount parentDiscount;
+  @Column(name = "parent_discount_id", insertable = false, updatable = false)
+  private String parentDiscountId;
 
-    @NotNull
-    @Column(name = "starts_at", nullable = false)
-    private OffsetDateTime startsAt;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "parent_discount_id")
+  private Discount parentDiscount;
 
-    @Column(name = "ends_at")
-    private OffsetDateTime endsAt;
+  @NotNull
+  @Column(name = "starts_at", nullable = false)
+  private OffsetDateTime startsAt;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @Column(name = "ends_at")
+  private OffsetDateTime endsAt;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @Column(name = "usage_limit")
-    private Integer usageLimit;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @NotNull
-    @Column(name = "usage_count", nullable = false)
-    private Integer usageCount;
+  @Column(name = "usage_limit")
+  private Integer usageLimit;
 
-    @Column(name = "valid_duration", length = Integer.MAX_VALUE)
-    private String validDuration;
+  @NotNull
+  @Column(name = "usage_count", nullable = false)
+  private Integer usageCount;
 
-    @Override
-    protected String getIdPrefix() {
-        return "disc";
-    }
+  @Column(name = "valid_duration", length = Integer.MAX_VALUE)
+  private String validDuration;
+
+  @Override
+  protected String getIdPrefix() {
+    return "disc";
+  }
 }

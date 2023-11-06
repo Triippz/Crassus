@@ -4,12 +4,11 @@ import com.crassus.models.SoftDeletableEntity;
 import com.crassus.models.enumerations.ProductStatusType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -19,75 +18,76 @@ import java.util.Map;
 @Entity
 @Table(name = "product")
 public class Product extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
-    private String title;
 
-    @Column(name = "subtitle", length = Integer.MAX_VALUE)
-    private String subtitle;
+  @NotNull
+  @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
+  private String title;
 
-    @Column(name = "description", length = Integer.MAX_VALUE)
-    private String description;
+  @Column(name = "subtitle", length = Integer.MAX_VALUE)
+  private String subtitle;
 
-    @Column(name = "handle", length = Integer.MAX_VALUE)
-    private String handle;
+  @Column(name = "description", length = Integer.MAX_VALUE)
+  private String description;
 
-    @NotNull
-    @Column(name = "is_giftcard", nullable = false)
-    private Boolean isGiftcard = false;
+  @Column(name = "handle", length = Integer.MAX_VALUE)
+  private String handle;
 
-    @Column(name = "thumbnail", length = Integer.MAX_VALUE)
-    private String thumbnail;
+  @NotNull
+  @Column(name = "is_giftcard", nullable = false)
+  private Boolean isGiftcard = false;
 
-    @Column(name = "weight")
-    private Integer weight;
+  @Column(name = "thumbnail", length = Integer.MAX_VALUE)
+  private String thumbnail;
 
-    @Column(name = "length")
-    private Integer length;
+  @Column(name = "weight")
+  private Integer weight;
 
-    @Column(name = "height")
-    private Integer height;
+  @Column(name = "length")
+  private Integer length;
 
-    @Column(name = "width")
-    private Integer width;
+  @Column(name = "height")
+  private Integer height;
 
-    @Column(name = "hs_code", length = Integer.MAX_VALUE)
-    private String hsCode;
+  @Column(name = "width")
+  private Integer width;
 
-    @Column(name = "origin_country", length = Integer.MAX_VALUE)
-    private String originCountry;
+  @Column(name = "hs_code", length = Integer.MAX_VALUE)
+  private String hsCode;
 
-    @Column(name = "mid_code", length = Integer.MAX_VALUE)
-    private String midCode;
+  @Column(name = "origin_country", length = Integer.MAX_VALUE)
+  private String originCountry;
 
-    @Column(name = "material", length = Integer.MAX_VALUE)
-    private String material;
+  @Column(name = "mid_code", length = Integer.MAX_VALUE)
+  private String midCode;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "material", length = Integer.MAX_VALUE)
+  private String material;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "collection_id")
-    private ProductCollection collection;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_id")
-    private ProductType type;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "collection_id")
+  private ProductCollection collection;
 
-    @NotNull
-    @Column(name = "discountable", nullable = false)
-    private Boolean discountable = false;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "type_id")
+  private ProductType type;
 
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private ProductStatusType status;
+  @NotNull
+  @Column(name = "discountable", nullable = false)
+  private Boolean discountable = false;
 
-    @Column(name = "external_id", length = Integer.MAX_VALUE)
-    private String externalId;
+  @NotNull
+  @Column(name = "status", nullable = false)
+  private ProductStatusType status;
 
-    @Override
-    protected String getIdPrefix() {
-        return "prod";
-    }
+  @Column(name = "external_id", length = Integer.MAX_VALUE)
+  private String externalId;
+
+  @Override
+  protected String getIdPrefix() {
+    return "prod";
+  }
 }

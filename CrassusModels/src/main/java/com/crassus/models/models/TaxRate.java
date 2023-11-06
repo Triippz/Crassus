@@ -3,12 +3,11 @@ package com.crassus.models.models;
 import com.crassus.models.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -18,39 +17,40 @@ import java.util.Map;
 @Entity
 @Table(name = "tax_rate")
 public class TaxRate extends BaseEntity {
-    @Id
-    @Column(name = "id", nullable = false, length = Integer.MAX_VALUE)
-    private String id;
 
-    @Column(name = "rate")
-    private Float rate;
+  @Id
+  @Column(name = "id", nullable = false, length = Integer.MAX_VALUE)
+  private String id;
 
-    @Column(name = "code", length = Integer.MAX_VALUE)
-    private String code;
+  @Column(name = "rate")
+  private Float rate;
 
-    @NotNull
-    @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
-    private String name;
+  @Column(name = "code", length = Integer.MAX_VALUE)
+  private String code;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "region_id", nullable = false)
-    private Region region;
+  @NotNull
+  @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
+  private String name;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "region_id", nullable = false)
+  private Region region;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "txr";
-    }
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
+
+  @Override
+  protected String getIdPrefix() {
+    return "txr";
+  }
 }

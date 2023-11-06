@@ -4,12 +4,11 @@ import com.crassus.models.BaseEntity;
 import com.crassus.models.enumerations.ReturnStatusType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -19,48 +18,49 @@ import java.util.Map;
 @Entity
 @Table(name = "return")
 public class Return extends BaseEntity {
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private ReturnStatusType status;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "swap_id")
-    private Swap swap;
+  @NotNull
+  @Column(name = "status", nullable = false)
+  private ReturnStatusType status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "swap_id")
+  private Swap swap;
 
-    @Column(name = "shipping_data")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> shippingData;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "order_id")
+  private Order order;
 
-    @NotNull
-    @Column(name = "refund_amount", nullable = false)
-    private Integer refundAmount;
+  @Column(name = "shipping_data")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> shippingData;
 
-    @Column(name = "received_at")
-    private OffsetDateTime receivedAt;
+  @NotNull
+  @Column(name = "refund_amount", nullable = false)
+  private Integer refundAmount;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "received_at")
+  private OffsetDateTime receivedAt;
 
-    @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
-    private String idempotencyKey;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "claim_order_id")
-    private ClaimOrder claimOrder;
+  @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
+  private String idempotencyKey;
 
-    @Column(name = "no_notification")
-    private Boolean noNotification;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "claim_order_id")
+  private ClaimOrder claimOrder;
 
-    @Column(name = "location_id", length = Integer.MAX_VALUE)
-    private String locationId;
+  @Column(name = "no_notification")
+  private Boolean noNotification;
 
-    @Override
-    protected String getIdPrefix() {
-        return "ret";
-    }
+  @Column(name = "location_id", length = Integer.MAX_VALUE)
+  private String locationId;
+
+  @Override
+  protected String getIdPrefix() {
+    return "ret";
+  }
 }

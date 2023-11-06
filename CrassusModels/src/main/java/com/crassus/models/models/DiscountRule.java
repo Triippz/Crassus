@@ -8,12 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -23,37 +22,38 @@ import java.util.Map;
 @Entity
 @Table(name = "discount_rule")
 public class DiscountRule extends SoftDeletableEntity {
-    @Column(name = "description", length = Integer.MAX_VALUE)
-    private String description;
 
-    @NotNull
-    @Column(name = "type", nullable = false)
-    private DiscountRuleType type;
+  @Column(name = "description", length = Integer.MAX_VALUE)
+  private String description;
 
-    @NotNull
-    @Column(name = "value", nullable = false)
-    private Integer value;
+  @NotNull
+  @Column(name = "type", nullable = false)
+  private DiscountRuleType type;
 
-    @Column(name = "allocation")
-    private DiscountRuleAllocationType allocation;
+  @NotNull
+  @Column(name = "value", nullable = false)
+  private Integer value;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @Column(name = "allocation")
+  private DiscountRuleAllocationType allocation;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "dru";
-    }
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
+
+  @Override
+  protected String getIdPrefix() {
+    return "dru";
+  }
 }

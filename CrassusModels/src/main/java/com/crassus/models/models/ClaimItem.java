@@ -4,12 +4,11 @@ import com.crassus.models.SoftDeletableEntity;
 import com.crassus.models.enumerations.ClaimItemReasonType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -19,58 +18,59 @@ import java.util.Map;
 @Entity
 @Table(name = "claim_item")
 public class ClaimItem extends SoftDeletableEntity {
-    @Column(name = "claim_order_id", insertable = false, updatable = false)
-    private String claimOrderId;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "claim_order_id", nullable = false)
-    private ClaimOrder claimOrder;
+  @Column(name = "claim_order_id", insertable = false, updatable = false)
+  private String claimOrderId;
 
-    @Column(name = "item_id", insertable = false, updatable = false)
-    private String itemId;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "claim_order_id", nullable = false)
+  private ClaimOrder claimOrder;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "item_id", nullable = false)
-    private LineItem item;
+  @Column(name = "item_id", insertable = false, updatable = false)
+  private String itemId;
 
-    @Column(name = "variant_id", insertable = false, updatable = false)
-    private String variantId;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "item_id", nullable = false)
+  private LineItem item;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "variant_id", nullable = false)
-    private ProductVariant variant;
+  @Column(name = "variant_id", insertable = false, updatable = false)
+  private String variantId;
 
-    @NotNull
-    @Column(name = "reason", nullable = false)
-    private ClaimItemReasonType reason;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "variant_id", nullable = false)
+  private ProductVariant variant;
 
-    @Column(name = "note", length = Integer.MAX_VALUE)
-    private String note;
+  @NotNull
+  @Column(name = "reason", nullable = false)
+  private ClaimItemReasonType reason;
 
-    @NotNull
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+  @Column(name = "note", length = Integer.MAX_VALUE)
+  private String note;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @NotNull
+  @Column(name = "quantity", nullable = false)
+  private Integer quantity;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "citm";
-    }
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
+
+  @Override
+  protected String getIdPrefix() {
+    return "citm";
+  }
 }

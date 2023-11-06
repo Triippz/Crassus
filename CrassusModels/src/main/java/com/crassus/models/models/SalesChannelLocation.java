@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-
 @Getter
 @Setter
 @Builder
@@ -16,16 +15,17 @@ import lombok.*;
 @Entity
 @Table(name = "sales_channel_location")
 public class SalesChannelLocation extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "sales_channel_id", nullable = false, length = Integer.MAX_VALUE)
-    private String salesChannelId;
 
-    @NotNull
-    @Column(name = "location_id", nullable = false, length = Integer.MAX_VALUE)
-    private String locationId;
+  @NotNull
+  @Column(name = "sales_channel_id", nullable = false, length = Integer.MAX_VALUE)
+  private String salesChannelId;
 
-    @Override
-    protected String getIdPrefix() {
-        return "scloc";
-    }
+  @NotNull
+  @Column(name = "location_id", nullable = false, length = Integer.MAX_VALUE)
+  private String locationId;
+
+  @Override
+  protected String getIdPrefix() {
+    return "scloc";
+  }
 }

@@ -15,20 +15,20 @@ import lombok.*;
 @Entity
 @Table(name = "currency")
 public class Currency {
-    @Id
-    @Column(name = "code", nullable = false, length = Integer.MAX_VALUE)
-    private String code;
 
-    @NotNull
-    @Column(name = "symbol", nullable = false, length = Integer.MAX_VALUE)
-    private String symbol;
+  @Id
+  @Column(name = "code", nullable = false, length = Integer.MAX_VALUE)
+  private String code;
 
-    @NotNull
-    @Column(name = "symbol_native", nullable = false, length = Integer.MAX_VALUE)
-    private String symbolNative;
+  @NotNull
+  @Column(name = "symbol", nullable = false, length = Integer.MAX_VALUE)
+  private String symbol;
 
-    @NotNull
-    @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
-    private String name;
+  @NotNull
+  @Column(name = "symbol_native", nullable = false, length = Integer.MAX_VALUE)
+  private String symbolNative;
 
+  @NotNull
+  @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
+  private String name;
 }

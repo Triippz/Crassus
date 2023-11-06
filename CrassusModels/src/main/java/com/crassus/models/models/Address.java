@@ -3,12 +3,11 @@ package com.crassus.models.models;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -18,58 +17,59 @@ import java.util.Map;
 @Entity
 @Table(name = "address")
 public class Address extends SoftDeletableEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
 
-    @Column(name = "company", length = Integer.MAX_VALUE)
-    private String company;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "customer_id")
+  private Customer customer;
 
-    @Column(name = "first_name", length = Integer.MAX_VALUE)
-    private String firstName;
+  @Column(name = "company", length = Integer.MAX_VALUE)
+  private String company;
 
-    @Column(name = "last_name", length = Integer.MAX_VALUE)
-    private String lastName;
+  @Column(name = "first_name", length = Integer.MAX_VALUE)
+  private String firstName;
 
-    @Column(name = "address_1", length = Integer.MAX_VALUE)
-    private String address1;
+  @Column(name = "last_name", length = Integer.MAX_VALUE)
+  private String lastName;
 
-    @Column(name = "address_2", length = Integer.MAX_VALUE)
-    private String address2;
+  @Column(name = "address_1", length = Integer.MAX_VALUE)
+  private String address1;
 
-    @Column(name = "city", length = Integer.MAX_VALUE)
-    private String city;
+  @Column(name = "address_2", length = Integer.MAX_VALUE)
+  private String address2;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_code")
-    private Country countryCode;
+  @Column(name = "city", length = Integer.MAX_VALUE)
+  private String city;
 
-    @Column(name = "province", length = Integer.MAX_VALUE)
-    private String province;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "country_code")
+  private Country countryCode;
 
-    @Column(name = "postal_code", length = Integer.MAX_VALUE)
-    private String postalCode;
+  @Column(name = "province", length = Integer.MAX_VALUE)
+  private String province;
 
-    @Column(name = "phone", length = Integer.MAX_VALUE)
-    private String phone;
+  @Column(name = "postal_code", length = Integer.MAX_VALUE)
+  private String postalCode;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @Column(name = "phone", length = Integer.MAX_VALUE)
+  private String phone;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "addr";
-    }
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
+
+  @Override
+  protected String getIdPrefix() {
+    return "addr";
+  }
 }

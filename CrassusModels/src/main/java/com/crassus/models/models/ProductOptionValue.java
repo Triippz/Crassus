@@ -3,13 +3,12 @@ package com.crassus.models.models;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.SqlTypes;
-
-import java.util.Map;
 
 @Getter
 @Setter
@@ -19,27 +18,28 @@ import java.util.Map;
 @Entity
 @Table(name = "product_option_value")
 public class ProductOptionValue extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "value", nullable = false, length = Integer.MAX_VALUE)
-    private String value;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "option_id", nullable = false)
-    private ProductOption option;
+  @NotNull
+  @Column(name = "value", nullable = false, length = Integer.MAX_VALUE)
+  private String value;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "variant_id", nullable = false)
-    private ProductVariant variant;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "option_id", nullable = false)
+  private ProductOption option;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "variant_id", nullable = false)
+  private ProductVariant variant;
 
-    @Override
-    protected String getIdPrefix() {
-        return "optval";
-    }
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
+
+  @Override
+  protected String getIdPrefix() {
+    return "optval";
+  }
 }

@@ -15,32 +15,33 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "money_amount")
 public class MoneyAmount extends SoftDeletableEntity {
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "currency_code", nullable = false)
-    private Currency currencyCode;
 
-    @NotNull
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "currency_code", nullable = false)
+  private Currency currencyCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id")
-    private Region region;
+  @NotNull
+  @Column(name = "amount", nullable = false)
+  private Integer amount;
 
-    @Column(name = "min_quantity")
-    private Integer minQuantity;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "region_id")
+  private Region region;
 
-    @Column(name = "max_quantity")
-    private Integer maxQuantity;
+  @Column(name = "min_quantity")
+  private Integer minQuantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "price_list_id")
-    private PriceList priceList;
+  @Column(name = "max_quantity")
+  private Integer maxQuantity;
 
-    @Override
-    protected String getIdPrefix() {
-        return "ma";
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "price_list_id")
+  private PriceList priceList;
+
+  @Override
+  protected String getIdPrefix() {
+    return "ma";
+  }
 }

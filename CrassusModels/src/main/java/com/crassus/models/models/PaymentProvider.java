@@ -15,12 +15,12 @@ import lombok.*;
 @Entity
 @Table(name = "payment_provider")
 public class PaymentProvider {
-    @Id
-    @Column(name = "id", nullable = false, length = Integer.MAX_VALUE)
-    private String id;
 
-    @NotNull
-    @Column(name = "is_installed", nullable = false)
-    private Boolean isInstalled = false;
+  @Id
+  @Column(name = "id", nullable = false, length = Integer.MAX_VALUE)
+  private String id;
 
+  @NotNull
+  @Column(name = "is_installed", nullable = false)
+  private Boolean isInstalled = false;
 }

@@ -5,9 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-
 import java.time.OffsetDateTime;
+import lombok.*;
 
 @Getter
 @Setter
@@ -17,21 +16,22 @@ import java.time.OffsetDateTime;
 @Entity
 @Table(name = "publishable_api_key")
 public class PublishableApiKey extends BaseEntity {
-    @Column(name = "created_by", length = Integer.MAX_VALUE)
-    private String createdBy;
 
-    @Column(name = "revoked_by", length = Integer.MAX_VALUE)
-    private String revokedBy;
+  @Column(name = "created_by", length = Integer.MAX_VALUE)
+  private String createdBy;
 
-    @Column(name = "revoked_at")
-    private OffsetDateTime revokedAt;
+  @Column(name = "revoked_by", length = Integer.MAX_VALUE)
+  private String revokedBy;
 
-    @NotNull
-    @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
-    private String title;
+  @Column(name = "revoked_at")
+  private OffsetDateTime revokedAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "pk";
-    }
+  @NotNull
+  @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
+  private String title;
+
+  @Override
+  protected String getIdPrefix() {
+    return "pk";
+  }
 }

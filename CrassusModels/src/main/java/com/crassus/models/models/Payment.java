@@ -3,12 +3,11 @@ package com.crassus.models.models;
 import com.crassus.models.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -18,55 +17,56 @@ import java.util.Map;
 @Entity
 @Table(name = "payment")
 public class Payment extends BaseEntity {
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "swap_id")
-    private Swap swap;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "swap_id")
+  private Swap swap;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "cart_id")
+  private Cart cart;
 
-    @NotNull
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "order_id")
+  private Order order;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "currency_code", nullable = false)
-    private Currency currencyCode;
+  @NotNull
+  @Column(name = "amount", nullable = false)
+  private Integer amount;
 
-    @NotNull
-    @Column(name = "amount_refunded", nullable = false)
-    private Integer amountRefunded;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "currency_code", nullable = false)
+  private Currency currencyCode;
 
-    @NotNull
-    @Column(name = "provider_id", nullable = false, length = Integer.MAX_VALUE)
-    private String providerId;
+  @NotNull
+  @Column(name = "amount_refunded", nullable = false)
+  private Integer amountRefunded;
 
-    @NotNull
-    @Column(name = "data", nullable = false)
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> data;
+  @NotNull
+  @Column(name = "provider_id", nullable = false, length = Integer.MAX_VALUE)
+  private String providerId;
 
-    @Column(name = "captured_at")
-    private OffsetDateTime capturedAt;
+  @NotNull
+  @Column(name = "data", nullable = false)
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> data;
 
-    @Column(name = "canceled_at")
-    private OffsetDateTime canceledAt;
+  @Column(name = "captured_at")
+  private OffsetDateTime capturedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "canceled_at")
+  private OffsetDateTime canceledAt;
 
-    @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
-    private String idempotencyKey;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @Override
-    protected String getIdPrefix() {
-        return "pay";
-    }
+  @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
+  private String idempotencyKey;
+
+  @Override
+  protected String getIdPrefix() {
+    return "pay";
+  }
 }

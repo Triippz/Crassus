@@ -5,9 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-
 import java.time.OffsetDateTime;
+import lombok.*;
 
 @Getter
 @Setter
@@ -17,31 +16,32 @@ import java.time.OffsetDateTime;
 @Entity
 @Table(name = "analytics_config")
 public class AnalyticsConfig extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @NotNull
-    @Column(name = "user_id", nullable = false, length = Integer.MAX_VALUE)
-    private String userId;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @NotNull
-    @Column(name = "opt_out", nullable = false)
-    private Boolean optOut = false;
+  @NotNull
+  @Column(name = "user_id", nullable = false, length = Integer.MAX_VALUE)
+  private String userId;
 
-    @NotNull
-    @Column(name = "anonymize", nullable = false)
-    private Boolean anonymize = false;
+  @NotNull
+  @Column(name = "opt_out", nullable = false)
+  private Boolean optOut = false;
 
-    @Override
-    protected String getIdPrefix() {
-        return "acfg";
-    }
+  @NotNull
+  @Column(name = "anonymize", nullable = false)
+  private Boolean anonymize = false;
+
+  @Override
+  protected String getIdPrefix() {
+    return "acfg";
+  }
 }

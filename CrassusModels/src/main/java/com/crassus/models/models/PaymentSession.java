@@ -4,12 +4,11 @@ import com.crassus.models.BaseEntity;
 import com.crassus.models.enumerations.PaymentSessionStatusType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -19,41 +18,42 @@ import java.util.Map;
 @Entity
 @Table(name = "payment_session")
 public class PaymentSession extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
 
-    @NotNull
-    @Column(name = "provider_id", nullable = false, length = Integer.MAX_VALUE)
-    private String providerId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "cart_id")
+  private Cart cart;
 
-    @Column(name = "is_selected")
-    private Boolean isSelected;
+  @NotNull
+  @Column(name = "provider_id", nullable = false, length = Integer.MAX_VALUE)
+  private String providerId;
 
-    @NotNull
-    @Column(name = "status", nullable = false)
-    private PaymentSessionStatusType status;
+  @Column(name = "is_selected")
+  private Boolean isSelected;
 
-    @NotNull
-    @Column(name = "data", nullable = false)
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> data;
+  @NotNull
+  @Column(name = "status", nullable = false)
+  private PaymentSessionStatusType status;
 
-    @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
-    private String idempotencyKey;
+  @NotNull
+  @Column(name = "data", nullable = false)
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> data;
 
-    @Column(name = "payment_authorized_at")
-    private OffsetDateTime paymentAuthorizedAt;
+  @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
+  private String idempotencyKey;
 
-    @Column(name = "amount")
-    private Integer amount;
+  @Column(name = "payment_authorized_at")
+  private OffsetDateTime paymentAuthorizedAt;
 
-    @NotNull
-    @Column(name = "is_initiated", nullable = false)
-    private Boolean isInitiated = false;
+  @Column(name = "amount")
+  private Integer amount;
 
-    @Override
-    protected String getIdPrefix() {
-        return "ps";
-    }
+  @NotNull
+  @Column(name = "is_initiated", nullable = false)
+  private Boolean isInitiated = false;
+
+  @Override
+  protected String getIdPrefix() {
+    return "ps";
+  }
 }

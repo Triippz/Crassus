@@ -12,21 +12,21 @@ import lombok.*;
 @Entity
 @Table(name = "fulfillment_item")
 public class FulfillmentItem {
-    @EmbeddedId
-    private FulfillmentItemId id;
 
-    @MapsId("fulfillmentId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "fulfillment_id", nullable = false)
-    private Fulfillment fulfillment;
+  @EmbeddedId
+  private FulfillmentItemId id;
 
-    @MapsId("itemId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "item_id", nullable = false)
-    private LineItem item;
+  @MapsId("fulfillmentId")
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "fulfillment_id", nullable = false)
+  private Fulfillment fulfillment;
 
-    @NotNull
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+  @MapsId("itemId")
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "item_id", nullable = false)
+  private LineItem item;
 
+  @NotNull
+  @Column(name = "quantity", nullable = false)
+  private Integer quantity;
 }

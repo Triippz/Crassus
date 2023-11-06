@@ -5,12 +5,11 @@ import com.crassus.models.enumerations.DiscountConditionOperatorType;
 import com.crassus.models.enumerations.DiscountConditionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -20,39 +19,40 @@ import java.util.Map;
 @Entity
 @Table(name = "discount_condition")
 public class DiscountCondition extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "type", nullable = false)
-    private DiscountConditionType type;
 
-    @NotNull
-    @Column(name = "operator", nullable = false)
-    private DiscountConditionOperatorType operator;
+  @NotNull
+  @Column(name = "type", nullable = false)
+  private DiscountConditionType type;
 
-    @Column(name = "discount_rule_id", insertable = false, updatable = false)
-    private String discountRuleId;
+  @NotNull
+  @Column(name = "operator", nullable = false)
+  private DiscountConditionOperatorType operator;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "discount_rule_id", nullable = false)
-    private DiscountRule discountRule;
+  @Column(name = "discount_rule_id", insertable = false, updatable = false)
+  private String discountRuleId;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "discount_rule_id", nullable = false)
+  private DiscountRule discountRule;
 
-    @NotNull
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
+  @NotNull
+  @Column(name = "created_at", nullable = false)
+  private OffsetDateTime createdAt;
 
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+  @NotNull
+  @Column(name = "updated_at", nullable = false)
+  private OffsetDateTime updatedAt;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "deleted_at")
+  private OffsetDateTime deletedAt;
 
-    @Override
-    protected String getIdPrefix() {
-        return "discon";
-    }
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
+
+  @Override
+  protected String getIdPrefix() {
+    return "discon";
+  }
 }

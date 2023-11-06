@@ -3,11 +3,10 @@ package com.crassus.models.models;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.util.Map;
 
 @Getter
 @Setter
@@ -17,20 +16,21 @@ import java.util.Map;
 @Entity
 @Table(name = "product_option")
 public class ProductOption extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
-    private String title;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @NotNull
+  @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
+  private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @Override
-    protected String getIdPrefix() {
-        return "opt";
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_id")
+  private Product product;
+
+  @Override
+  protected String getIdPrefix() {
+    return "opt";
+  }
 }

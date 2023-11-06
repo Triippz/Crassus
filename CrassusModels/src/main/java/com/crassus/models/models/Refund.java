@@ -4,11 +4,10 @@ import com.crassus.models.BaseEntity;
 import com.crassus.models.enumerations.RefundReasonType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.util.Map;
 
 @Getter
 @Setter
@@ -18,35 +17,35 @@ import java.util.Map;
 @Entity
 @Table(name = "refund")
 public class Refund extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
 
-    @NotNull
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "order_id")
+  private Order order;
 
-    @Column(name = "note", length = Integer.MAX_VALUE)
-    private String note;
+  @NotNull
+  @Column(name = "amount", nullable = false)
+  private Integer amount;
 
-    @NotNull
-    @Column(name = "reason", nullable = false)
-    private RefundReasonType reason;
+  @Column(name = "note", length = Integer.MAX_VALUE)
+  private String note;
 
+  @NotNull
+  @Column(name = "reason", nullable = false)
+  private RefundReasonType reason;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
-    private String idempotencyKey;
+  @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
+  private String idempotencyKey;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "payment_id")
+  private Payment payment;
 
-    @Override
-    protected String getIdPrefix() {
-        return "ref";
-    }
+  @Override
+  protected String getIdPrefix() {
+    return "ref";
+  }
 }

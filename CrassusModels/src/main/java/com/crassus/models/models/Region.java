@@ -3,11 +3,10 @@ package com.crassus.models.models;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.util.Map;
 
 @Getter
 @Setter
@@ -17,40 +16,41 @@ import java.util.Map;
 @Entity
 @Table(name = "region")
 public class Region extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
-    private String name;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "currency_code", nullable = false)
-    private Currency currencyCode;
+  @NotNull
+  @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
+  private String name;
 
-    @NotNull
-    @Column(name = "tax_rate", nullable = false)
-    private Float taxRate;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "currency_code", nullable = false)
+  private Currency currencyCode;
 
-    @Column(name = "tax_code", length = Integer.MAX_VALUE)
-    private String taxCode;
+  @NotNull
+  @Column(name = "tax_rate", nullable = false)
+  private Float taxRate;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "tax_code", length = Integer.MAX_VALUE)
+  private String taxCode;
 
-    @NotNull
-    @Column(name = "gift_cards_taxable", nullable = false)
-    private Boolean giftCardsTaxable = false;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @NotNull
-    @Column(name = "automatic_taxes", nullable = false)
-    private Boolean automaticTaxes = false;
+  @NotNull
+  @Column(name = "gift_cards_taxable", nullable = false)
+  private Boolean giftCardsTaxable = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tax_provider_id")
-    private TaxProvider taxProvider;
+  @NotNull
+  @Column(name = "automatic_taxes", nullable = false)
+  private Boolean automaticTaxes = false;
 
-    @Override
-    protected String getIdPrefix() {
-        return "reg";
-    }
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "tax_provider_id")
+  private TaxProvider taxProvider;
+
+  @Override
+  protected String getIdPrefix() {
+    return "reg";
+  }
 }

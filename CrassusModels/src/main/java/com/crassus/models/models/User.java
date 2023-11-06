@@ -6,13 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Map;
+import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Getter
 @Setter
@@ -22,35 +21,36 @@ import java.util.Map;
 @Entity
 @Table(name = "users")
 public class User extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "login", nullable = false, length = Integer.MAX_VALUE)
-    private String login;
 
-    @Column(name = "first_name", length = Integer.MAX_VALUE)
-    private String firstName;
+  @NotNull
+  @Column(name = "login", nullable = false, length = Integer.MAX_VALUE)
+  private String login;
 
-    @Column(name = "last_name", length = Integer.MAX_VALUE)
-    private String lastName;
+  @Column(name = "first_name", length = Integer.MAX_VALUE)
+  private String firstName;
 
-    @Column(name = "email", length = Integer.MAX_VALUE)
-    private String email;
+  @Column(name = "last_name", length = Integer.MAX_VALUE)
+  private String lastName;
 
-    @NotNull
-    @Column(name = "activated", nullable = false)
-    private Boolean activated = false;
+  @Column(name = "email", length = Integer.MAX_VALUE)
+  private String email;
 
-    @Column(name = "lang_key", length = Integer.MAX_VALUE)
-    private String langKey;
+  @NotNull
+  @Column(name = "activated", nullable = false)
+  private Boolean activated = false;
 
-    @Column(name = "last_modified_date")
-    private Instant lastModifiedDate;
+  @Column(name = "lang_key", length = Integer.MAX_VALUE)
+  private String langKey;
 
-    @Column(name = "meta_data")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metaData;
+  @Column(name = "last_modified_date")
+  private Instant lastModifiedDate;
 
-    @Override
-    protected String getIdPrefix() {
-        return "usr";
-    }
+  @Column(name = "meta_data")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metaData;
+
+  @Override
+  protected String getIdPrefix() {
+    return "usr";
+  }
 }

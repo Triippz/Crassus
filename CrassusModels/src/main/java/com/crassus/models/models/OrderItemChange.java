@@ -14,25 +14,26 @@ import lombok.*;
 @Entity
 @Table(name = "order_item_change")
 public class OrderItemChange extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "type", nullable = false)
-    private OrderItemChangeType type;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_edit_id", nullable = false)
-    private OrderEdit orderEdit;
+  @NotNull
+  @Column(name = "type", nullable = false)
+  private OrderItemChangeType type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "original_line_item_id")
-    private LineItem originalLineItem;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "order_edit_id", nullable = false)
+  private OrderEdit orderEdit;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "line_item_id")
-    private LineItem lineItem;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "original_line_item_id")
+  private LineItem originalLineItem;
 
-    @Override
-    protected String getIdPrefix() {
-        return "oic";
-    }
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "line_item_id")
+  private LineItem lineItem;
+
+  @Override
+  protected String getIdPrefix() {
+    return "oic";
+  }
 }

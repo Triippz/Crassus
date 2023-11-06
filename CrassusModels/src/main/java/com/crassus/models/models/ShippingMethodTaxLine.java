@@ -14,13 +14,13 @@ import lombok.*;
 @Table(name = "shipping_method_tax_line")
 public class ShippingMethodTaxLine extends TaxLine {
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "shipping_method_id", nullable = false)
-    private ShippingMethod shippingMethod;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "shipping_method_id", nullable = false)
+  private ShippingMethod shippingMethod;
 
-    @Override
-    protected String getIdPrefix() {
-        return "smtl";
-    }
+  @Override
+  protected String getIdPrefix() {
+    return "smtl";
+  }
 }

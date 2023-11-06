@@ -3,11 +3,10 @@ package com.crassus.models.models;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.util.Map;
 
 @Getter
 @Setter
@@ -17,72 +16,73 @@ import java.util.Map;
 @Entity
 @Table(name = "product_variant")
 public class ProductVariant extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
-    private String title;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+  @NotNull
+  @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
+  private String title;
 
-    @Column(name = "sku", length = Integer.MAX_VALUE)
-    private String sku;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "product_id", nullable = false)
+  private Product product;
 
-    @Column(name = "barcode", length = Integer.MAX_VALUE)
-    private String barcode;
+  @Column(name = "sku", length = Integer.MAX_VALUE)
+  private String sku;
 
-    @Column(name = "ean", length = Integer.MAX_VALUE)
-    private String ean;
+  @Column(name = "barcode", length = Integer.MAX_VALUE)
+  private String barcode;
 
-    @Column(name = "upc", length = Integer.MAX_VALUE)
-    private String upc;
+  @Column(name = "ean", length = Integer.MAX_VALUE)
+  private String ean;
 
-    @NotNull
-    @Column(name = "inventory_quantity", nullable = false)
-    private Integer inventoryQuantity;
+  @Column(name = "upc", length = Integer.MAX_VALUE)
+  private String upc;
 
-    @NotNull
-    @Column(name = "allow_backorder", nullable = false)
-    private Boolean allowBackorder = false;
+  @NotNull
+  @Column(name = "inventory_quantity", nullable = false)
+  private Integer inventoryQuantity;
 
-    @NotNull
-    @Column(name = "manage_inventory", nullable = false)
-    private Boolean manageInventory = false;
+  @NotNull
+  @Column(name = "allow_backorder", nullable = false)
+  private Boolean allowBackorder = false;
 
-    @Column(name = "hs_code", length = Integer.MAX_VALUE)
-    private String hsCode;
+  @NotNull
+  @Column(name = "manage_inventory", nullable = false)
+  private Boolean manageInventory = false;
 
-    @Column(name = "origin_country", length = Integer.MAX_VALUE)
-    private String originCountry;
+  @Column(name = "hs_code", length = Integer.MAX_VALUE)
+  private String hsCode;
 
-    @Column(name = "mid_code", length = Integer.MAX_VALUE)
-    private String midCode;
+  @Column(name = "origin_country", length = Integer.MAX_VALUE)
+  private String originCountry;
 
-    @Column(name = "material", length = Integer.MAX_VALUE)
-    private String material;
+  @Column(name = "mid_code", length = Integer.MAX_VALUE)
+  private String midCode;
 
-    @Column(name = "weight")
-    private Integer weight;
+  @Column(name = "material", length = Integer.MAX_VALUE)
+  private String material;
 
-    @Column(name = "length")
-    private Integer length;
+  @Column(name = "weight")
+  private Integer weight;
 
-    @Column(name = "height")
-    private Integer height;
+  @Column(name = "length")
+  private Integer length;
 
-    @Column(name = "width")
-    private Integer width;
+  @Column(name = "height")
+  private Integer height;
 
-    @Column(name = "metadata")
-    @JdbcTypeCode(SqlTypes.JSON)
-    private Map<String, Object> metadata;
+  @Column(name = "width")
+  private Integer width;
 
-    @Column(name = "variant_rank")
-    private Integer variantRank;
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, Object> metadata;
 
-    @Override
-    protected String getIdPrefix() {
-        return "variant";
-    }
+  @Column(name = "variant_rank")
+  private Integer variantRank;
+
+  @Override
+  protected String getIdPrefix() {
+    return "variant";
+  }
 }

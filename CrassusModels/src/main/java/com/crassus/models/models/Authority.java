@@ -14,8 +14,9 @@ import lombok.*;
 @Entity
 @Table(name = "authority")
 public class Authority {
-    @Id
-    @jakarta.validation.constraints.Size(max = 50)
-    @Column(name = "name", nullable = false, length = 50)
-    private String name;
+
+  @Id
+  @jakarta.validation.constraints.Size(max = 50)
+  @Column(name = "name", nullable = false, length = 50)
+  private String name;
 }

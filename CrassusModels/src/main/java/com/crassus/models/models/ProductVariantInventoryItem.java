@@ -15,20 +15,21 @@ import lombok.*;
 @Entity
 @Table(name = "product_variant_inventory_item")
 public class ProductVariantInventoryItem extends SoftDeletableEntity {
-    @NotNull
-    @Column(name = "inventory_item_id", nullable = false, length = Integer.MAX_VALUE)
-    private String inventoryItemId;
 
-    @NotNull
-    @Column(name = "variant_id", nullable = false, length = Integer.MAX_VALUE)
-    private String variantId;
+  @NotNull
+  @Column(name = "inventory_item_id", nullable = false, length = Integer.MAX_VALUE)
+  private String inventoryItemId;
 
-    @NotNull
-    @Column(name = "required_quantity", nullable = false)
-    private Integer requiredQuantity;
+  @NotNull
+  @Column(name = "variant_id", nullable = false, length = Integer.MAX_VALUE)
+  private String variantId;
 
-    @Override
-    protected String getIdPrefix() {
-        return "pvitem";
-    }
+  @NotNull
+  @Column(name = "required_quantity", nullable = false)
+  private Integer requiredQuantity;
+
+  @Override
+  protected String getIdPrefix() {
+    return "pvitem";
+  }
 }

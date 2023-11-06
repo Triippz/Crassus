@@ -1,0 +1,14 @@
+
+  ${AnsiColor.GREEN}
+  ${AnsiColor.GREEN} ▄████████    ▄████████    ▄████████    ▄████████    ▄████████ ███    █▄     ▄████████
+  ${AnsiColor.GREEN}███    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███    ███   ███    ███
+  ${AnsiColor.GREEN}███    █▀    ███    ███   ███    ███   ███    █▀    ███    █▀  ███    ███   ███    █▀
+  ${AnsiColor.GREEN}███         ▄███▄▄▄▄██▀   ███    ███   ███          ███        ███    ███   ███
+  ${AnsiColor.GREEN}███        ▀▀███▀▀▀▀▀   ▀███████████ ▀███████████ ▀███████████ ███    ███ ▀███████████
+  ${AnsiColor.GREEN}███    █▄  ▀███████████   ███    ███          ███          ███ ███    ███          ███
+  ${AnsiColor.GREEN}███    ███   ███    ███   ███    ███    ▄█    ███    ▄█    ███ ███    ███    ▄█    ███
+  ${AnsiColor.GREEN}████████▀    ███    ███   ███    █▀   ▄████████▀   ▄████████▀  ████████▀   ▄████████▀
+  ${AnsiColor.GREEN}             ███    ███
+
+${AnsiColor.BRIGHT_BLUE}:: Crassis :: Running Spring Boot ${spring-boot.version} :: Startup profile(s) ${spring.profiles.active} ::
+:: https://www.crassuscommerce.com ::${AnsiColor.DEFAULT}

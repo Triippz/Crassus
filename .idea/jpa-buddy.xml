@@ -3,5 +3,7 @@
   <component name="JpaBuddyIdeaProjectConfig">
     <option name="defaultUnitInitialized" value="true" />
     <option name="renamerInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="bb1bfb2a-d129-48df-af40-15078e93baf9__crassus_public" />
+    <option name="reLastEntityCreationPackage" value="CrassusModels/src/main/java/com/crassus/models/models" />
   </component>
 </project>

@@ -1,6 +1,7 @@
 package com.crassus.models.models;
 
 import com.crassus.models.BaseEntity;
+import com.crassus.models.enumerations.OrderEditStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
@@ -58,8 +59,29 @@ public class OrderEdit extends BaseEntity {
   @JoinColumn(name = "payment_collection_id")
   private PaymentCollection paymentCollection;
 
+  @Transient
+  private OrderEditStatus status;
+
   @Override
   protected String getIdPrefix() {
     return "oe";
+  }
+
+  @PostLoad
+  private void loadStatus() {
+    if (requestedAt != null) {
+      status = OrderEditStatus.REQUESTED;
+    }
+    if (declinedAt != null) {
+      status = OrderEditStatus.DECLINED;
+    }
+    if (confirmedAt != null) {
+      status = OrderEditStatus.CONFIRMED;
+    }
+    if (canceledAt != null) {
+      status = OrderEditStatus.CANCELED;
+    }
+
+    status = (status != null) ? status : OrderEditStatus.CREATED;
   }
 }

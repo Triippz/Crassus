@@ -580,13 +580,13 @@ CREATE INDEX IF NOT EXISTS "IDX_f74980b411cf94af523a72af7d" ON note (resource_ty
 
 CREATE INDEX IF NOT EXISTS "IDX_3287f98befad26c3a7dab088cf" ON note (resource_id);
 
-create type INVITE_ROLE_TYPE as enum ('ADMIN', 'MEMBER', 'DEVELOPER');
+create type INVITE_ROLE_TYPE as enum ('ROLE_ADMIN', 'ROLE_USER', 'ROLE_DEVELOPER');
 CREATE TABLE IF NOT EXISTS invite
 (
     id         varchar                                NOT NULL
         CONSTRAINT "PK_fc9fa190e5a3c5d80604a4f63e1" PRIMARY KEY,
     user_email varchar                                NOT NULL,
-    ROLE       INVITE_ROLE_TYPE         DEFAULT 'MEMBER'::INVITE_ROLE_TYPE,
+    ROLE       INVITE_ROLE_TYPE         DEFAULT 'ROLE_USER'::INVITE_ROLE_TYPE,
     accepted   boolean                  DEFAULT FALSE NOT NULL,
     created_at timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
     updated_at timestamp WITH TIME ZONE DEFAULT now() NOT NULL,

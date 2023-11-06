@@ -19,6 +19,9 @@
     <modules>
         <module>CrassusData</module>
         <module>CrassusModels</module>
+        <module>CrassusService</module>
+        <module>CrassusCore</module>
+        <module>CrassusErrors</module>
     </modules>
 
     <properties>

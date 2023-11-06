@@ -1,0 +1,3 @@
+org.springframework.test.context.ContextCustomizerFactory = com.crassus.service.\
+    config.SqlTestContainersSpringContextCustomizerFactory,com.crassus.service.\
+    config.RedisTestContainersSpringContextCustomizerFactory

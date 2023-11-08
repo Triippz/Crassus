@@ -1,7 +1,7 @@
 package com.crassus.core.annotations.validators;
 
 import com.crassus.core.annotations.Phone;
-import com.crassus.core.types.PhoneNumber;
+import com.crassus.core.models.PhoneNumber;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;

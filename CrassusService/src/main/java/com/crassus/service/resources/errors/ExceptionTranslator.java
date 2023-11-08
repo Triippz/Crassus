@@ -116,7 +116,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
       problem.getType() == null || problem.getType().equals(URI.create("about:blank"))
     ) problem.setType(getMappedType(err));
 
-    // higher precedence to Custom/ResponseStatus types
+    // higher precedence to Custom/ResponseStatus models
     String title = extractTitle(err, problem.getStatus());
     String problemTitle = problem.getTitle();
     if (problemTitle == null || !problemTitle.equals(title)) {

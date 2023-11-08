@@ -1,5 +1,7 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.PhoneNumberConverter;
+import com.crassus.core.models.PhoneNumber;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -39,7 +41,8 @@ public class Customer extends SoftDeletableEntity {
   private String passwordHash;
 
   @Column(name = "phone", length = Integer.MAX_VALUE)
-  private String phone; // TODO add phoneNumber type
+  @Convert(converter = PhoneNumberConverter.class)
+  private PhoneNumber phone; // TODO add phoneNumber type
 
   @NotNull
   @Column(name = "has_account", nullable = false)

@@ -1,6 +1,6 @@
 package com.crassus.core.serialization;
 
-import com.crassus.core.types.PhoneNumber;
+import com.crassus.core.models.PhoneNumber;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;

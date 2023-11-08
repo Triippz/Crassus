@@ -1,5 +1,7 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.PhoneNumberConverter;
+import com.crassus.core.models.PhoneNumber;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -51,7 +53,8 @@ public class Address extends SoftDeletableEntity {
   private String postalCode;
 
   @Column(name = "phone", length = Integer.MAX_VALUE)
-  private String phone;
+  @Convert(converter = PhoneNumberConverter.class)
+  private PhoneNumber phone;
 
   @NotNull
   @Column(name = "created_at", nullable = false)

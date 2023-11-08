@@ -1,6 +1,6 @@
 package com.crassus.core.converters;
 
-import com.crassus.core.types.PhoneNumber;
+import com.crassus.core.models.PhoneNumber;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

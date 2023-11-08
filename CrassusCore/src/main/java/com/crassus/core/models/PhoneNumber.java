@@ -1,4 +1,4 @@
-package com.crassus.core.types;
+package com.crassus.core.models;
 
 import com.crassus.core.serialization.PhoneNumberDeserializer;
 import com.crassus.core.serialization.PhoneNumberSerializer;

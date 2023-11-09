@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.SoftDeletableEntity;
 import com.crassus.models.enumerations.ProductStatusType;
 import jakarta.persistence.*;
@@ -65,6 +66,7 @@ public class Product extends SoftDeletableEntity {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @ManyToOne(fetch = FetchType.LAZY)

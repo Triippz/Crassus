@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.SoftDeletableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -59,6 +60,7 @@ public class GiftCard extends SoftDeletableEntity {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @Column(name = "tax_rate")

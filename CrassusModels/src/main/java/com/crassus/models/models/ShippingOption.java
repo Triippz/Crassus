@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.SoftDeletableEntity;
 import com.crassus.models.enumerations.ShippingOptionPriceType;
 import jakarta.persistence.*;
@@ -51,10 +52,12 @@ public class ShippingOption extends SoftDeletableEntity {
   @NotNull
   @Column(name = "data", nullable = false)
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> data;
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @NotNull

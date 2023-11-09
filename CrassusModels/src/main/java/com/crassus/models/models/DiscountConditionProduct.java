@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
@@ -44,5 +45,6 @@ public class DiscountConditionProduct {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 }

@@ -1,7 +1,9 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.BaseIdEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -26,11 +28,13 @@ public class StagedJob extends BaseIdEntity {
   @NotNull
   @Column(name = "data", nullable = false)
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> data;
 
   @NotNull
   @Column(name = "options", nullable = false)
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> options;
 
   @Override

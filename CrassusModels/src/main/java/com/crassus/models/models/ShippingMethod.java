@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.util.Map;
@@ -48,6 +49,7 @@ public class ShippingMethod {
   @NotNull
   @Column(name = "data", nullable = false)
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> data;
 
   @ManyToOne(fetch = FetchType.LAZY)

@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -29,11 +30,13 @@ public class Fulfillment extends BaseEntity {
   @NotNull
   @Column(name = "tracking_numbers", nullable = false)
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> trackingNumbers;
 
   @NotNull
   @Column(name = "data", nullable = false)
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> data;
 
   @Column(name = "shipped_at")
@@ -52,6 +55,7 @@ public class Fulfillment extends BaseEntity {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @Column(name = "idempotency_key", length = Integer.MAX_VALUE)

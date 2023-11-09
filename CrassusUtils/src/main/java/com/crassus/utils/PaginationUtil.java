@@ -18,11 +18,10 @@
  */
 package com.crassus.utils;
 
+import java.text.MessageFormat;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.text.MessageFormat;
 
 /**
  * Utility class for handling pagination.

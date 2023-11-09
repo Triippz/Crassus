@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoGeneratorSettingsState">
+    <option name="ignoredFields">
+      <set>
+        <option value="createdAt" />
+        <option value="deletedAt" />
+        <option value="id" />
+        <option value="updatedAt" />
+      </set>
+    </option>
+    <option name="inheritedParentClassName" value="com.crassus.models.SoftDeletableEntity" />
     <option name="moduleName" value="Crassus" />
     <option name="moduleNameToSettings">
       <map>
         <entry key="Crassus">
+          <value>
+            <ModuleSettings>
+              <option name="controllerParentDirectory" value="$PROJECT_DIR$" />
+              <option name="dtoParentDirectory" value="$PROJECT_DIR$" />
+              <option name="entityPackageName" value="com.crassus.models.models2" />
+              <option name="entityParentDirectory" value="$PROJECT_DIR$/CrassusModels/src/main/java" />
+              <option name="mapperXmlParentDirectory" value="$PROJECT_DIR$/../resources" />
+              <option name="repositoryPackageName" value="com.crassus.data.repositories2" />
+              <option name="repositoryParentDirectory" value="$PROJECT_DIR$/Repositories/src/main/java" />
+              <option name="serviceParentDirectory" value="$PROJECT_DIR$" />
+              <option name="voParentDirectory" value="$PROJECT_DIR$" />
+            </ModuleSettings>
+          </value>
+        </entry>
+        <entry key="CrassusData">
+          <value>
+            <ModuleSettings />
+          </value>
+        </entry>
+        <entry key="CrassusModels">
           <value>
             <ModuleSettings />
           </value>

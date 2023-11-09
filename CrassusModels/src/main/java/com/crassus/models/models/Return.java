@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.BaseEntity;
 import com.crassus.models.enumerations.ReturnStatusType;
 import jakarta.persistence.*;
@@ -33,6 +34,7 @@ public class Return extends BaseEntity {
 
   @Column(name = "shipping_data")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> shippingData;
 
   @NotNull
@@ -44,6 +46,7 @@ public class Return extends BaseEntity {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @Column(name = "idempotency_key", length = Integer.MAX_VALUE)

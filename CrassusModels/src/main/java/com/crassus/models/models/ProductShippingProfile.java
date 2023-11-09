@@ -21,7 +21,7 @@ public class ProductShippingProfile {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JoinColumn(name = "profile_id", nullable = false)
-  private ProductShippingProfile profile;
+  private ShippingProfile profile;
 
   @MapsId("productId")
   @ManyToOne(fetch = FetchType.LAZY, optional = false)

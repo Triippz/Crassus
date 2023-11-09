@@ -23,8 +23,8 @@ public class CustomerGroupCustomerId implements Serializable {
   private String customerGroupId;
 
   @NotNull
-  @Column(name = "customer_id", nullable = false, length = Integer.MAX_VALUE)
-  private String customerId;
+  @Column(name = "user_id", nullable = false, length = Integer.MAX_VALUE)
+  private String userId;
 
   @Override
   public boolean equals(Object o) {
@@ -33,12 +33,12 @@ public class CustomerGroupCustomerId implements Serializable {
     CustomerGroupCustomerId entity = (CustomerGroupCustomerId) o;
     return (
       Objects.equals(this.customerGroupId, entity.customerGroupId) &&
-      Objects.equals(this.customerId, entity.customerId)
+      Objects.equals(this.userId, entity.userId)
     );
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(customerGroupId, customerId);
+    return Objects.hash(customerGroupId, userId);
   }
 }

@@ -1,9 +1,7 @@
 package com.crassus.models.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.crassus.core.converters.JsonToMapConverter;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.util.Map;
 import lombok.*;
@@ -39,5 +37,6 @@ public class Oauth {
 
   @Column(name = "data")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> data;
 }

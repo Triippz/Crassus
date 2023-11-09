@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.SoftDeletableEntity;
 import com.crassus.models.enumerations.ClaimOrderFulfillmentStatusType;
 import com.crassus.models.enumerations.ClaimOrderPaymentStatusType;
@@ -71,6 +72,7 @@ public class ClaimOrder extends SoftDeletableEntity {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @Column(name = "idempotency_key", length = Integer.MAX_VALUE)

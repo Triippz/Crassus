@@ -1,24 +1,37 @@
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
+
 CREATE TABLE IF NOT EXISTS users
 (
-    id                 VARCHAR                                NOT NULL,
-    login              VARCHAR                                NOT NULL,
-    first_name         VARCHAR,
-    last_name          VARCHAR,
-    email              VARCHAR,
-    activated          BOOLEAN                                NOT NULL DEFAULT FALSE,
-    lang_key           VARCHAR,
-    created_at         timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
-    updated_at         timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
-    deleted_at         timestamp WITH TIME ZONE,
-    last_modified_date TIMESTAMP,
-    meta_data          jsonb,
+    id                          VARCHAR                                NOT NULL,
+    login                       VARCHAR                                NOT NULL,
+    first_name                  VARCHAR,
+    last_name                   VARCHAR,
+    email                       VARCHAR,
+    activated                   BOOLEAN                                NOT NULL DEFAULT FALSE,
+    lang_key                    VARCHAR,
+    default_billing_address_id  varchar
+        constraint "REL_8abe81b9aac151ae60bf507ad1" unique,
+    default_shipping_address_id varchar
+        constraint "REL_8abe81b9aac151ae60bf507ag3" unique,
+    phone                       varchar,
+    note                        varchar,
+    image_url                   varchar,
+    created_at                  timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
+    updated_at                  timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
+    deleted_at                  timestamp WITH TIME ZONE,
+    last_modified_date          TIMESTAMP,
+    meta_data                   jsonb,
 
     CONSTRAINT users_pk PRIMARY KEY (id),
     CONSTRAINT ux_user_login UNIQUE (login),
     CONSTRAINT ux_user_email UNIQUE (email)
 );
+CREATE INDEX IF NOT EXISTS "IDX_8abe81b9aac151ae60bf507ad1"
+    on users (default_billing_address_id);
+CREATE INDEX IF NOT EXISTS "IDX_8abe81b9aac151ae60bf507ag3"
+    on users (default_shipping_address_id);
+
 
 CREATE TABLE IF NOT EXISTS authority
 (
@@ -188,30 +201,6 @@ CREATE INDEX IF NOT EXISTS "IDX_aac4855eadda71aa1e4b6d7684" ON payment (cart_id)
 CREATE INDEX IF NOT EXISTS "IDX_payment_currency_code" ON payment (currency_code);
 
 
-CREATE TABLE IF NOT EXISTS customer
-(
-    id                 varchar                                NOT NULL
-        CONSTRAINT "PK_a7a13f4cacb744524e44dfdad32" PRIMARY KEY,
-    email              varchar                                NOT NULL,
-    first_name         varchar,
-    last_name          varchar,
-    billing_address_id varchar
-        CONSTRAINT "REL_8abe81b9aac151ae60bf507ad1" UNIQUE,
-    password_hash      varchar,
-    phone              varchar,
-    has_account        boolean                  DEFAULT FALSE NOT NULL,
-    created_at         timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
-    updated_at         timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
-    deleted_at         timestamp WITH TIME ZONE,
-    metadata           JSONB,
-    CONSTRAINT "UQ_unique_email_for_guests_and_customer_accounts" UNIQUE (email,
-                                                                          has_account)
-);
-
-
-CREATE INDEX IF NOT EXISTS "IDX_8abe81b9aac151ae60bf507ad1" ON customer (billing_address_id);
-
-
 CREATE TABLE IF NOT EXISTS idempotency_key
 (
     id              varchar                                                       NOT NULL
@@ -224,7 +213,7 @@ CREATE TABLE IF NOT EXISTS idempotency_key
     request_path    varchar,
     response_code   integer,
     response_body   JSONB,
-    recovery_point  varchar                  DEFAULT 'started'::CHARACTER varying NOT NULL
+    recovery_point  varchar                  DEFAULT 'started'::CHARACTER NOT NULL
 );
 
 
@@ -285,8 +274,8 @@ CREATE TABLE IF NOT EXISTS notification
     event_name    varchar,
     resource_type varchar                                NOT NULL,
     resource_id   varchar                                NOT NULL,
-    customer_id   varchar
-        CONSTRAINT "FK_b5df0f53a74b9d0c0a2b652c88d" REFERENCES customer,
+    user_id       varchar
+        CONSTRAINT "FK_b5df0f53a74b9d0c0a2b652c88d" REFERENCES users,
     "to"          varchar                                NOT NULL,
     DATA          JSONB                                  NOT NULL,
     parent_id     varchar
@@ -304,7 +293,7 @@ CREATE INDEX IF NOT EXISTS "IDX_df1494d263740fcfb1d09a98fc" ON notification (res
 CREATE INDEX IF NOT EXISTS "IDX_ea6a358d9ce41c16499aae55f9" ON notification (resource_id);
 
 
-CREATE INDEX IF NOT EXISTS "IDX_b5df0f53a74b9d0c0a2b652c88" ON notification (customer_id);
+CREATE INDEX IF NOT EXISTS "IDX_b5df0f53a74b9d0c0a2b652c88" ON notification (user_id);
 
 
 CREATE TABLE IF NOT EXISTS product_collection
@@ -580,13 +569,13 @@ CREATE INDEX IF NOT EXISTS "IDX_f74980b411cf94af523a72af7d" ON note (resource_ty
 
 CREATE INDEX IF NOT EXISTS "IDX_3287f98befad26c3a7dab088cf" ON note (resource_id);
 
-create type INVITE_ROLE_TYPE as enum ('ROLE_ADMIN', 'ROLE_USER', 'ROLE_DEVELOPER');
+create type INVITE_ROLE_TYPE as enum ('ROLE_ADMIN', 'ROLE_STAFF', 'ROLE_DEVELOPER', 'ROLE_CUSTOMER');
 CREATE TABLE IF NOT EXISTS invite
 (
     id         varchar                                NOT NULL
         CONSTRAINT "PK_fc9fa190e5a3c5d80604a4f63e1" PRIMARY KEY,
     user_email varchar                                NOT NULL,
-    ROLE       INVITE_ROLE_TYPE         DEFAULT 'ROLE_USER'::INVITE_ROLE_TYPE,
+    ROLE       INVITE_ROLE_TYPE         DEFAULT 'ROLE_CUSTOMER'::INVITE_ROLE_TYPE,
     accepted   boolean                  DEFAULT FALSE NOT NULL,
     created_at timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
     updated_at timestamp WITH TIME ZONE DEFAULT now() NOT NULL,
@@ -643,11 +632,7 @@ CREATE TABLE IF NOT EXISTS country
 
 
 CREATE UNIQUE INDEX IF NOT EXISTS "IDX_e78901b1131eaf8203d9b1cb5f" ON country (iso_2);
-
-
 CREATE INDEX IF NOT EXISTS "IDX_b1aac8314662fa6b25569a575b" ON country (region_id);
-
-
 CREATE INDEX IF NOT EXISTS "IDX_region_currency_code" ON region (currency_code);
 
 
@@ -694,13 +679,12 @@ CREATE INDEX IF NOT EXISTS "IDX_5c58105f1752fca0f4ce69f466" ON shipping_option (
 CREATE INDEX IF NOT EXISTS "IDX_c951439af4c98bf2bd7fb8726c" ON shipping_option (profile_id);
 CREATE INDEX IF NOT EXISTS "IDX_a0e206bfaed3cb63c186091734" ON shipping_option (provider_id);
 
-
 CREATE TABLE IF NOT EXISTS address
 (
     id           varchar                                NOT NULL
         CONSTRAINT "PK_d92de1f82754668b5f5f5dd4fd5" PRIMARY KEY,
-    customer_id  varchar
-        CONSTRAINT "FK_9c9614b2f9d01665800ea8dbff7" REFERENCES customer,
+    user_id      varchar
+        CONSTRAINT "FK_9c9614b2f9d01665800ea8dbff7" REFERENCES users,
     company      varchar,
     first_name   varchar,
     last_name    varchar,
@@ -719,11 +703,13 @@ CREATE TABLE IF NOT EXISTS address
 );
 
 
-ALTER TABLE customer
+ALTER TABLE users
     ADD CONSTRAINT "FK_8abe81b9aac151ae60bf507ad15"
-        FOREIGN KEY (billing_address_id) REFERENCES address;
-CREATE INDEX IF NOT EXISTS "IDX_9c9614b2f9d01665800ea8dbff" ON address (customer_id);
-
+        FOREIGN KEY (default_billing_address_id) REFERENCES address;
+ALTER TABLE users
+    ADD CONSTRAINT "FK_8abe81b9aac151ae60bf507ag3"
+        FOREIGN KEY (default_shipping_address_id) REFERENCES address;
+CREATE INDEX IF NOT EXISTS "IDX_9c9614b2f9d01665800ea8dbff" ON address (user_id);
 
 CREATE TABLE IF NOT EXISTS region_payment_providers
 (
@@ -844,10 +830,7 @@ CREATE TABLE IF NOT EXISTS shipping_tax_rate
                                                              rate_id)
 );
 
-
 CREATE INDEX IF NOT EXISTS "IDX_346e0016cf045b998074774764" ON shipping_tax_rate (rate_id);
-
-
 CREATE INDEX IF NOT EXISTS "IDX_f672727ab020df6c50fb64c1a7" ON shipping_tax_rate (shipping_option_id);
 
 
@@ -871,17 +854,15 @@ CREATE TABLE IF NOT EXISTS customer_group_customers
 (
     customer_group_id varchar NOT NULL
         CONSTRAINT "FK_620330964db8d2999e67b0dbe3e" REFERENCES customer_group ON DELETE CASCADE,
-    customer_id       varchar NOT NULL
-        CONSTRAINT "FK_3c6412d076292f439269abe1a23" REFERENCES customer ON DELETE CASCADE,
+    user_id           varchar NOT NULL
+        CONSTRAINT "FK_3c6412d076292f439269abe1a23" REFERENCES users ON DELETE CASCADE,
     CONSTRAINT "PK_e28a55e34ad1e2d3df9a0ac86d3" PRIMARY KEY (customer_group_id,
-                                                             customer_id)
+                                                             user_id)
 );
 
-
 CREATE INDEX IF NOT EXISTS "IDX_620330964db8d2999e67b0dbe3" ON customer_group_customers (customer_group_id);
+CREATE INDEX IF NOT EXISTS "IDX_3c6412d076292f439269abe1a2" ON customer_group_customers (user_id);
 
-
-CREATE INDEX IF NOT EXISTS "IDX_3c6412d076292f439269abe1a2" ON customer_group_customers (customer_id);
 
 create type DISCOUNT_CONDITION_TYPE as enum ('PRODUCTS', 'PRODUCT_TYPES', 'PRODUCT_COLLECTIONS', 'PRODUCT_TAGS', 'CUSTOMER_GROUPS');
 create type DISCOUNT_CONDITION_OPERATOR_TYPE as enum ('IN', 'NOT_IN');
@@ -1089,8 +1070,8 @@ CREATE TABLE IF NOT EXISTS cart
         CONSTRAINT "FK_ced15a9a695d2b5db9dabce763d" REFERENCES address,
     region_id             varchar                                               NOT NULL
         CONSTRAINT "FK_484c329f4783be4e18e5e2ff090" REFERENCES region,
-    customer_id           varchar
-        CONSTRAINT "FK_242205c81c1152fab1b6e848470" REFERENCES customer,
+    user_id               varchar
+        CONSTRAINT "FK_242205c81c1152fab1b6e848470" REFERENCES users,
     payment_id            varchar
         CONSTRAINT "REL_9d1a161434c610aae7c3df2dc7" UNIQUE
         CONSTRAINT "FK_9d1a161434c610aae7c3df2dc7e" REFERENCES payment,
@@ -1110,7 +1091,7 @@ CREATE TABLE IF NOT EXISTS cart
 CREATE INDEX IF NOT EXISTS "IDX_6b9c66b5e36f7c827dfaa092f9" ON cart (billing_address_id);
 CREATE INDEX IF NOT EXISTS "IDX_ced15a9a695d2b5db9dabce763" ON cart (shipping_address_id);
 CREATE INDEX IF NOT EXISTS "IDX_484c329f4783be4e18e5e2ff09" ON cart (region_id);
-CREATE INDEX IF NOT EXISTS "IDX_242205c81c1152fab1b6e84847" ON cart (customer_id);
+CREATE INDEX IF NOT EXISTS "IDX_242205c81c1152fab1b6e84847" ON cart (user_id);
 CREATE INDEX IF NOT EXISTS "IDX_9d1a161434c610aae7c3df2dc7" ON cart (payment_id);
 
 create type PAYMENT_SESSION_STATUS_TYPE as enum ('AUTHORIZED', 'PENDING', 'REQUIRES_MORE', 'ERROR', 'CANCELED');
@@ -1162,8 +1143,8 @@ CREATE TABLE IF NOT EXISTS "order"
     cart_id             varchar
         CONSTRAINT "REL_c99a206eb11ad45f6b7f04f2dc" UNIQUE
         CONSTRAINT "FK_c99a206eb11ad45f6b7f04f2dcc" REFERENCES cart,
-    customer_id         varchar                                                                              NOT NULL
-        CONSTRAINT "FK_cd7812c96209c5bdd48a6b858b0" REFERENCES customer,
+    user_id             varchar                                                                              NOT NULL
+        CONSTRAINT "FK_cd7812c96209c5bdd48a6b858b0" REFERENCES users,
     email               varchar                                                                              NOT NULL,
     billing_address_id  varchar
         CONSTRAINT "FK_5568d3b9ce9f7abeeb37511ecf2" REFERENCES address,
@@ -1303,7 +1284,7 @@ CREATE INDEX IF NOT EXISTS "IDX_eec9d9af4ca098e19ea6b499ea" ON refund (order_id)
 CREATE INDEX IF NOT EXISTS "IDX_refund_payment_id" ON refund (payment_id);
 CREATE INDEX IF NOT EXISTS "IDX_579e01fb94f4f58db480857e05" ON "order" (display_id);
 CREATE INDEX IF NOT EXISTS "IDX_c99a206eb11ad45f6b7f04f2dc" ON "order" (cart_id);
-CREATE INDEX IF NOT EXISTS "IDX_cd7812c96209c5bdd48a6b858b" ON "order" (customer_id);
+CREATE INDEX IF NOT EXISTS "IDX_cd7812c96209c5bdd48a6b858b" ON "order" (user_id);
 CREATE INDEX IF NOT EXISTS "IDX_5568d3b9ce9f7abeeb37511ecf" ON "order" (billing_address_id);
 CREATE INDEX IF NOT EXISTS "IDX_19b0c6293443d1b464f604c331" ON "order" (shipping_address_id);
 CREATE INDEX IF NOT EXISTS "IDX_e1fcce2b18dbcdbe0a5ba9a68b" ON "order" (region_id);
@@ -1314,8 +1295,8 @@ CREATE TABLE IF NOT EXISTS store
 (
     id                       varchar                                                            NOT NULL
         CONSTRAINT "PK_f3172007d4de5ae8e7692759d79" PRIMARY KEY,
-    name                     varchar                  DEFAULT 'Medusa Store'::CHARACTER varying NOT NULL,
-    default_currency_code    varchar                  DEFAULT 'usd'::CHARACTER varying          NOT NULL
+    name                     varchar                  DEFAULT 'Crassus Store'::CHARACTER NOT NULL,
+    default_currency_code    varchar                  DEFAULT 'usd'::CHARACTER          NOT NULL
         CONSTRAINT "FK_55beebaa09e947cccca554af222" REFERENCES currency,
     swap_link_template       varchar,
     created_at               timestamp WITH TIME ZONE DEFAULT now()                             NOT NULL,

@@ -1,12 +1,10 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.SoftDeletableEntity;
 import com.crassus.models.enumerations.DiscountRuleAllocationType;
 import com.crassus.models.enumerations.DiscountRuleType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Map;
@@ -50,6 +48,7 @@ public class DiscountRule extends SoftDeletableEntity {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @Override

@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.BaseEntity;
 import com.crassus.models.enumerations.OrderFulfillmentStatusType;
 import com.crassus.models.enumerations.OrderPaymentStatusType;
@@ -43,8 +44,8 @@ public class Order extends BaseEntity {
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "customer_id", nullable = false)
-  private Customer customer;
+  @JoinColumn(name = "user_id", nullable = false)
+  private User customer;
 
   @NotNull
   @Column(name = "email", nullable = false, length = Integer.MAX_VALUE)
@@ -76,6 +77,7 @@ public class Order extends BaseEntity {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @Column(name = "idempotency_key", length = Integer.MAX_VALUE)

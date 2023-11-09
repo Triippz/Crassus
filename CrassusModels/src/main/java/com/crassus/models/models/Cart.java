@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.SoftDeletableEntity;
 import com.crassus.models.enumerations.CartType;
 import jakarta.persistence.*;
@@ -44,12 +45,12 @@ public class Cart extends SoftDeletableEntity {
   @JoinColumn(name = "region_id", nullable = false)
   private Region region;
 
-  @Column(name = "customer_id", insertable = false, updatable = false)
+  @Column(name = "user_id", insertable = false, updatable = false)
   private String customerId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "customer_id")
-  private Customer customer;
+  @JoinColumn(name = "user_id")
+  private User customer;
 
   @Column(name = "payment_id", insertable = false, updatable = false)
   private String paymentId;
@@ -77,15 +78,12 @@ public class Cart extends SoftDeletableEntity {
   @Column(name = "deleted_at")
   private OffsetDateTime deletedAt;
 
-  @Column(name = "metadata")
-  @JdbcTypeCode(SqlTypes.JSON)
-  private Map<String, Object> metadata;
-
   @Column(name = "idempotency_key", length = Integer.MAX_VALUE)
   private String idempotencyKey;
 
   @Column(name = "context")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> context;
 
   @Column(name = "payment_authorized_at")
@@ -94,6 +92,11 @@ public class Cart extends SoftDeletableEntity {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "sales_channel_id")
   private SalesChannel salesChannel;
+
+  @Column(name = "metadata")
+  @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
+  private Map<String, Object> metadata;
 
   @Override
   protected String getIdPrefix() {

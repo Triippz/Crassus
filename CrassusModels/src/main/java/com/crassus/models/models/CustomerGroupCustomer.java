@@ -26,6 +26,6 @@ public class CustomerGroupCustomer {
   @MapsId("customerId")
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
-  @JoinColumn(name = "customer_id", nullable = false)
-  private Customer customer;
+  @JoinColumn(name = "user_id", nullable = false)
+  private User customer;
 }

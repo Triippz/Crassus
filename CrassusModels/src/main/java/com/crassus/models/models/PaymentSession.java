@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.BaseEntity;
 import com.crassus.models.enumerations.PaymentSessionStatusType;
 import jakarta.persistence.*;
@@ -37,6 +38,7 @@ public class PaymentSession extends BaseEntity {
   @NotNull
   @Column(name = "data", nullable = false)
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> data;
 
   @Column(name = "idempotency_key", length = Integer.MAX_VALUE)

@@ -45,7 +45,7 @@ class SecurityUtilsUnitTest {
   void testGetCurrentUserLoginForOAuth2() {
     SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
     Map<String, Object> claims = new HashMap<>();
-    claims.put("groups", AuthoritiesConstants.USER);
+    claims.put("groups", AuthoritiesConstants.CUSTOMER);
     claims.put("sub", 123);
     claims.put("preferred_username", "admin");
     OidcIdToken idToken = new OidcIdToken(
@@ -55,7 +55,7 @@ class SecurityUtilsUnitTest {
       claims
     );
     Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.CUSTOMER));
     OidcUser user = new DefaultOidcUser(authorities, idToken);
     OAuth2AuthenticationToken auth2AuthenticationToken = new OAuth2AuthenticationToken(
       user,
@@ -75,12 +75,12 @@ class SecurityUtilsUnitTest {
     Map<String, Object> claims = new HashMap<>();
     claims.put(
       "groups",
-      Arrays.asList(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
+      Arrays.asList(AuthoritiesConstants.ADMIN, AuthoritiesConstants.CUSTOMER)
     );
 
     List<GrantedAuthority> expectedAuthorities = Arrays.asList(
       new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN),
-      new SimpleGrantedAuthority(AuthoritiesConstants.USER)
+      new SimpleGrantedAuthority(AuthoritiesConstants.CUSTOMER)
     );
 
     List<GrantedAuthority> authorities = SecurityUtils.extractAuthorityFromClaims(claims);
@@ -97,12 +97,12 @@ class SecurityUtilsUnitTest {
     Map<String, Object> claims = new HashMap<>();
     claims.put(
       SecurityUtils.CLAIMS_NAMESPACE + "roles",
-      Arrays.asList(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
+      Arrays.asList(AuthoritiesConstants.ADMIN, AuthoritiesConstants.CUSTOMER)
     );
 
     List<GrantedAuthority> expectedAuthorities = Arrays.asList(
       new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN),
-      new SimpleGrantedAuthority(AuthoritiesConstants.USER)
+      new SimpleGrantedAuthority(AuthoritiesConstants.CUSTOMER)
     );
 
     List<GrantedAuthority> authorities = SecurityUtils.extractAuthorityFromClaims(claims);
@@ -142,13 +142,13 @@ class SecurityUtilsUnitTest {
   void testHasCurrentUserThisAuthority() {
     SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
     Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.CUSTOMER));
     securityContext.setAuthentication(
       new UsernamePasswordAuthenticationToken("user", "user", authorities)
     );
     SecurityContextHolder.setContext(securityContext);
 
-    assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.USER))
+    assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.CUSTOMER))
       .isTrue();
     assertThat(SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN))
       .isFalse();
@@ -158,7 +158,7 @@ class SecurityUtilsUnitTest {
   void testHasCurrentUserAnyOfAuthorities() {
     SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
     Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.CUSTOMER));
     securityContext.setAuthentication(
       new UsernamePasswordAuthenticationToken("user", "user", authorities)
     );
@@ -166,7 +166,7 @@ class SecurityUtilsUnitTest {
 
     assertThat(
       SecurityUtils.hasCurrentUserAnyOfAuthorities(
-        AuthoritiesConstants.USER,
+        AuthoritiesConstants.CUSTOMER,
         AuthoritiesConstants.ADMIN
       )
     )
@@ -184,7 +184,7 @@ class SecurityUtilsUnitTest {
   void testHasCurrentUserNoneOfAuthorities() {
     SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
     Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+    authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.CUSTOMER));
     securityContext.setAuthentication(
       new UsernamePasswordAuthenticationToken("user", "user", authorities)
     );
@@ -192,7 +192,7 @@ class SecurityUtilsUnitTest {
 
     assertThat(
       SecurityUtils.hasCurrentUserNoneOfAuthorities(
-        AuthoritiesConstants.USER,
+        AuthoritiesConstants.CUSTOMER,
         AuthoritiesConstants.ADMIN
       )
     )

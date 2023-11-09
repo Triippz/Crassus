@@ -1,9 +1,7 @@
 package com.crassus.models.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.crassus.core.converters.JsonToMapConverter;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.Map;
@@ -40,6 +38,7 @@ public class IdempotencyKey {
 
   @Column(name = "request_params")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> requestParams;
 
   @Column(name = "request_path", length = Integer.MAX_VALUE)
@@ -50,6 +49,7 @@ public class IdempotencyKey {
 
   @Column(name = "response_body")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> responseBody;
 
   @NotNull

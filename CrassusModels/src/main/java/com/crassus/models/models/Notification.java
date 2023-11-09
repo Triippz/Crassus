@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.models.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -29,8 +30,8 @@ public class Notification extends BaseEntity {
   private String resourceId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "customer_id")
-  private Customer customer;
+  @JoinColumn(name = "user_id")
+  private User customer;
 
   @NotNull
   @Column(name = "\"to\"", nullable = false, length = Integer.MAX_VALUE)
@@ -39,6 +40,7 @@ public class Notification extends BaseEntity {
   @NotNull
   @Column(name = "data", nullable = false)
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> data;
 
   @ManyToOne(fetch = FetchType.LAZY)

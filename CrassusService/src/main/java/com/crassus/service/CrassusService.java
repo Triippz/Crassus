@@ -23,7 +23,7 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 @EnableConfigurationProperties({ CrassusProperties.class })
 @ComponentScan(basePackages = { "com.crassus.*" })
-@EntityScan(basePackages = { "com.crassus.data.models" })
+@EntityScan(basePackages = { "com.crassus.models" })
 public class CrassusService {
 
   private static final Logger log = LoggerFactory.getLogger(CrassusService.class);

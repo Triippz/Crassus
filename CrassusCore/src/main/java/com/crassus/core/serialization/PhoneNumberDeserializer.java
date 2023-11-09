@@ -4,7 +4,6 @@ import com.crassus.core.models.PhoneNumber;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-
 import java.io.IOException;
 
 public class PhoneNumberDeserializer extends JsonDeserializer<PhoneNumber> {

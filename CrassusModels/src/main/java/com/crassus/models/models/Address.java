@@ -1,5 +1,6 @@
 package com.crassus.models.models;
 
+import com.crassus.core.converters.JsonToMapConverter;
 import com.crassus.core.converters.PhoneNumberConverter;
 import com.crassus.core.models.PhoneNumber;
 import com.crassus.models.SoftDeletableEntity;
@@ -20,9 +21,9 @@ import org.hibernate.type.SqlTypes;
 @Table(name = "address")
 public class Address extends SoftDeletableEntity {
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "customer_id")
-  private Customer customer;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private User user;
 
   @Column(name = "company", length = Integer.MAX_VALUE)
   private String company;
@@ -69,6 +70,7 @@ public class Address extends SoftDeletableEntity {
 
   @Column(name = "metadata")
   @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = JsonToMapConverter.class)
   private Map<String, Object> metadata;
 
   @Override
